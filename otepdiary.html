@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>College Diary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #f3f5f9;
+      display: flex;
+      min-height: 100vh;
+      color: #1f2937;
+    }
+
+    .sidebar {
+      width: 250px;
+      background: #ffffff;
+      border-right: 1px solid #e5e7eb;
+      padding: 28px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: fixed;
+      height: 100vh;
+      left: 0;
+      top: 0;
+    }
+
+    .logo {
+      font-size: 32px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      color: #111827;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #4b5563;
+      padding: 14px 16px;
+      border-radius: 14px;
+      font-weight: 500;
+      transition: 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-links a.active,
+    .nav-links a:hover {
+      background: linear-gradient(135deg, #2563eb, #3b82f6);
+      color: white;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.2);
+    }
+
+    .library-title {
+      margin-top: 34px;
+      margin-bottom: 12px;
+      color: #9ca3af;
+      font-size: 12px;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    .main {
+      margin-left: 250px;
+      width: calc(100% - 250px);
+      padding: 40px;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+
+    .header h1 {
+      font-size: 48px;
+      font-weight: 700;
+    }
+
+    .header p {
+      color: #6b7280;
+      margin-top: 8px;
+    }
+
+    .profile-mini {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: white;
+      padding: 10px 16px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    }
+
+    .profile-mini img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .top-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(15, 23, 42, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .icon {
+      font-size: 42px;
+      margin-bottom: 14px;
+    }
+
+    .card h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #6b7280;
+      line-height: 1.6;
+    }
+
+    .journey-card {
+      margin-bottom: 28px;
+    }
+
+    .timeline {
+      margin-top: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      padding: 18px;
+      border-radius: 18px;
+      background: #f9fafb;
+    }
+
+    .timeline-dot {
+      width: 18px;
+      height: 18px;
+      background: #2563eb;
+      border-radius: 50%;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .timeline-item h4 {
+      margin-bottom: 4px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-bottom: 28px;
+    }
+
+    .about-image {
+      width: 100%;
+      height: 280px;
+      border-radius: 22px;
+      object-fit: cover;
+    }
+
+    .about-text ul {
+      margin-top: 16px;
+      padding-left: 20px;
+      color: #4b5563;
+      line-height: 2;
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 22px;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 22px;
+      transition: 0.3s ease;
+    }
+
+    .gallery-grid img:hover {
+      transform: scale(1.03);
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 8px 18px;
+      border-radius: 999px;
+      background: #2563eb;
+      color: white;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .footer {
+      margin-top: 30px;
+      color: #6b7280;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+      }
+
+      body {
+        flex-direction: column;
+      }
+
+      .main {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px;
+      }
+
+      .header h1 {
+        font-size: 36px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div>
+      <div class="logo">📔 Diary</div>
+
+      <div class="nav-links">
+        <a href="#" class="active">🏠 Dashboard</a>
+        <a href="#about">🙋 About Me</a>
+        <a href="#profile">👤 Profile</a>
+        <a href="#journey">🛣 My Journey</a>
+        <a href="#gallery">🖼 Photos</a>
+      </div>
+
+      <div class="library-title">COLLEGE LIFE</div>
+
+      <div class="nav-links">
+        <a href="#subjects">📚 Subjects</a>
+        <a href="#">🎯 Goals</a>
+        <a href="#">🏆 Achievements</a>
+      </div>
+    </div>
+
+    <div class="nav-links">
+      <a href="#">⚙ Appearance</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="header">
+      <div>
+        <h1>Welcome to My College Diary</h1>
+        <p>A personal space to capture memories, goals, and achievements.</p>
+      </div>
+
+      <div class="profile-mini">
+       <img src="images/667871448_938786202345802_6605746810962456744_n.jpg" alt="">
+        <div>
+          <strong>Joseph John Santos</strong>
+          <p>College Student</p>
+        </div>
+      </div>
+    </div>
+
+    <section class="top-grid">
+      <div class="card" id="profile">
+        <div class="icon">👨‍🎓</div>
+        <h3>My Profile</h3>
+        <p>
+          Dedicated student focused on learning, personal growth, and building a successful future through education and creativity.
+        </p>
+        <span class="badge">Creative Thinker</span>
+      </div>
+
+      <div class="card" id="about">
+        <div class="icon">✨</div>
+        <h3>About Me</h3>
+        <p>
+          I am a hardworking student who enjoys learning new skills, making memories, and achieving academic goals during college life.
+        </p>
+        <span class="badge">Future Developer</span>
+      </div>
+
+      <div class="card">
+        <div class="icon">📸</div>
+        <h3>Photo Memories</h3>
+        <p>
+          Explore moments from campus events, projects, friendships, and unforgettable college adventures.
+        </p>
+        <span class="badge">Campus Moments</span>
+      </div>
+    </section>
+
+    <section class="card journey-card" id="journey">
+      <h3>🛣 My Journey</h3>
+      <p>
+        A timeline of my growth, achievements, and favorite memories during college life.
+      </p>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div>
+          
+          <div>
+            <h4>2024 - First Web Project</h4>
+            <p>Built my first responsive website and discovered my passion for front-end development.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div>
+            <h4>2025 - Leadership & Growth</h4>
+            <p>Joined coding communities, participated in hackathons, and improved my teamwork skills.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-grid">
+      <div class="card">
+        <img
+          class="about-image"
+          src="c:\Users\joseph\Downloads\6d3da212-8037-4485-acba-7fc41277b9a4.jpg"
+          alt="College Life"
+        />
+      </div>
+
+      <div class="card about-text">
+        <h3>🙌 Who I Am</h3>
+        <p>
+          I am a motivated student balancing academics, creativity, and personal growth. I love learning new technologies and collaborating with others.
+        </p>
+
+        <ul>
+          <li>💻 Web Development Enthusiast</li>
+          <li>🎨 UI/UX Design Learner</li>
+          <li>📖 Lifelong Learner</li>
+          <li>🚀 Goal-Oriented Student</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="card" id="subjects" style="margin-bottom: 28px;">
+      <h3>📚 My Subjects & Schedule</h3>
+      <p style="margin-top: 8px; margin-bottom: 24px; color: #6b7280;">
+        SCHOOL OF INFORMATION TECHNOLOGY • BSIT 2-2 • 2nd Semester • School Year 2025-2026
+      </p>
+
+      <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse: separate; border-spacing: 0 12px; min-width: 900px;">
+          <thead>
+            <tr style="background: linear-gradient(135deg, #2563eb, #3b82f6); color:white; text-align:left;">
+              <th style="padding:14px;">Code</th>
+              <th style="padding:14px;">Course Description</th>
+              <th style="padding:14px;">Day/s</th>
+              <th style="padding:14px;">Time</th>
+              <th style="padding:14px;">Room</th>
+              <th style="padding:14px;">Faculty</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#eff6ff; box-shadow:0 4px 10px rgba(37,99,235,0.08);">
+              <td style="padding:16px; border-radius:14px 0 0 14px; font-weight:600; color:#2563eb;">ELEC1</td>
+              <td style="padding:16px;">IT Elective 1</td>
+              <td style="padding:16px;">Mon / Thurs</td>
+              <td style="padding:16px;">2:00pm - 4:30pm</td>
+              <td style="padding:16px;">PB207 / Lab-3</td>
+              <td style="padding:16px;">Prof. Valeree Asuncion</td>
+            </tr>
+            <tr style="background:#ecfeff; box-shadow:0 4px 10px rgba(6,182,212,0.08);">
+              <td style="padding:16px; border-radius:14px 0 0 14px; font-weight:600; color:#0891b2;">APPDEV</td>
+              <td style="padding:16px;">Application Development and Emerging Technologies</td>
+              <td style="padding:16px;">Mon / Thurs</td>
+              <td style="padding:16px;">4:30pm - 7:00pm</td>
+              <td style="padding:16px;">PB208 / Lab-5</td>
+              <td style="padding:16px;">Mr. James Abenir</td>
+            </tr>
+            <tr style="background:#f5f3ff; box-shadow:0 4px 10px rgba(139,92,246,0.08);">
+              <td style="padding:16px; border-radius:14px 0 0 14px; font-weight:600; color:#7c3aed;">NET2</td>
+              <td style="padding:16px;">Advance Data Communication and Networking</td>
+              <td style="padding:16px;">Wednesday</td>
+              <td style="padding:16px;">2:00pm - 4:00pm / 4:30pm - 7:30pm</td>
+              <td style="padding:16px;">PB207 / NetLab</td>
+              <td style="padding:16px;">Prof. Noel Gagolinan</td>
+            </tr>
+            <tr style="background:#fff7ed; box-shadow:0 4px 10px rgba(249,115,22,0.08);">
+              <td style="padding:16px; border-radius:14px 0 0 14px; font-weight:600; color:#ea580c;">SOCPROF</td>
+              <td style="padding:16px;">Social and Professional Issues</td>
+              <td style="padding:16px;">Tuesday</td>
+              <td style="padding:16px;">10:30am - 1:30pm</td>
+              <td style="padding:16px;">PB208</td>
+              <td style="padding:16px;">Ms. KC Verana</td>
+            </tr>
+            <tr style="background:#f0fdf4; box-shadow:0 4px 10px rgba(34,197,94,0.08);">
+              <td style="padding:16px; border-radius:14px 0 0 14px; font-weight:600; color:#16a34a;">GE6</td>
+              <td style="padding:16px;">Art Appreciation</td>
+              <td style="padding:16px;">Friday</td>
+              <td style="padding:16px;">2:00pm - 5:00pm</td>
+              <td style="padding:16px;">PB205</td>
+              <td style="padding:16px;">Mr. Antonio Maypa</td>
+            </tr>
+            <tr style="background:#fef2f2; box-shadow:0 4px 10px rgba(239,68,68,0.08);">
+              <td style="padding:16px; border-radius:14px 0 0 14px; font-weight:600; color:#dc2626;">GE11</td>
+              <td style="padding:16px;">Life and Works of Rizal</td>
+              <td style="padding:16px;">Tuesday</td>
+              <td style="padding:16px;">7:30am - 10:30am</td>
+              <td style="padding:16px;">PB206</td>
+              <td style="padding:16px;">Prof. Ma. Lourdes Sahagun</td>
+            </tr>
+            <tr style="background:#faf5ff; box-shadow:0 4px 10px rgba(168,85,247,0.08);">
+              <td style="padding:16px; border-radius:14px 0 0 14px; font-weight:600; color:#9333ea;">GE12</td>
+              <td style="padding:16px;">Philippine Literature</td>
+              <td style="padding:16px;">Thursday</td>
+              <td style="padding:16px;">10:30am - 1:30pm</td>
+              <td style="padding:16px;">PB205</td>
+              <td style="padding:16px;">Prof. Ma. Lourdes Sahagun</td>
+            </tr>
+            <tr style="background:#fffbeb; box-shadow:0 4px 10px rgba(234,179,8,0.08);">
+              <td style="padding:16px; border-radius:14px 0 0 14px; font-weight:600; color:#ca8a04;">PE04</td>
+              <td style="padding:16px;">Team Sports</td>
+              <td style="padding:16px;">Friday</td>
+              <td style="padding:16px;">5:00pm - 7:00pm</td>
+              <td style="padding:16px;">Gym</td>
+              <td style="padding:16px;">Prof. Kristine Nomabilis</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card" id="gallery">
+      <h3>📸 College Photo Gallery</h3>
+      <p style="margin-top: 8px; margin-bottom: 24px; color: #6b7280;">
+        Some favorite moments from my college experience.
+      </p>
+<div class="gallery-grid">
+  <img src="images/42cd829a-5a19-4c13-ae1f-e99c03905c97.jpg" alt="Friends">
+
+  <img src="images/d83f07ce-55a1-4e02-86b5-1a0ddb02b1b1.jpg" alt="Coding">
+
+  <img src="images/41eca7ab-47eb-493c-b47d-e529c2ee519e.jpg" alt="Campus">
+
+  <img src="images/e9d12036-6131-4cae-91d1-e4a60dcbd216.jpg" alt="Graduation">
+</div>
+    </section>
+
+    <div class="footer">
+      © 2025 My College Diary • Designed with passion ✨
+    </div>
+  </main>
+</body>
+</html>
